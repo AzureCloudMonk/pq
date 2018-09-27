@@ -1580,6 +1580,9 @@ func (cn *conn) readReadyForQuery() {
 		return
 	default:
 		cn.bad = true
+		if t == 'E' {
+			errorf("unexpected error %s; expected ReadyForQuery", parseError(r))
+		}
 		errorf("unexpected message %q; expected ReadyForQuery", t)
 	}
 }
